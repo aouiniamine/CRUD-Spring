@@ -3,17 +3,22 @@ package com.hello.writeAndRead.controller;
 import com.hello.writeAndRead.entity.Product;
 import com.hello.writeAndRead.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+class TakeProductBody{
+    public int id;
+    public int quantity;
+}
 @RestController
+@RequestMapping("/products")
 public class ProductController {
-
     @Autowired
     private ProductService service;
 
-    @PostMapping("/saveProduct")
+    @PostMapping("/save")
     public Product saveProduct(@RequestBody Product product){
         return service.save(product);
     }
@@ -23,8 +28,14 @@ public class ProductController {
         return service.getAllProducts();
     }
 
-    @GetMapping("/getById/{id}")
+    @GetMapping("/byId/{id}")
     public Product getProudctById(@PathVariable int id){
         return service.getProductById(id);
+    }
+
+    @PutMapping("/take")
+    public ResponseEntity<String> takeProducts(@RequestBody TakeProductBody body){
+        System.out.println(body.id + " " + body.quantity);
+        return service.takeProducts(body.id, body.quantity);
     }
 }
