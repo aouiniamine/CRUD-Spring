@@ -38,4 +38,9 @@ public class ProductController {
         System.out.println(body.id + " " + body.quantity);
         return service.takeProducts(body.id, body.quantity);
     }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<String> deleteProduct(@PathVariable int id){
+        return service.deleteProduct(id);
+    }
 }

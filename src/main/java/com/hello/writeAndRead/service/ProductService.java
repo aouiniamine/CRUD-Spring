@@ -44,5 +44,15 @@ public class ProductService {
                 HttpStatus.NOT_FOUND);
     }
 
+    public ResponseEntity<String> deleteProduct(int id){
+        try {
+            repository.deleteById(id);
+            return new ResponseEntity<>("Product is deleted!!", HttpStatus.OK);
+        } catch (Error error){
+            return new ResponseEntity<>(error.getMessage(), HttpStatus.EXPECTATION_FAILED);
+        }
+
+    }
+
 
 }
