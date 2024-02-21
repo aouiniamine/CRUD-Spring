@@ -16,6 +16,13 @@ public class Product {
     @GeneratedValue
     private int id;
     private String name;
-    public int quantity;
+    private int quantity;
     private double price;
+
+    public int getQuantity(){
+        return quantity;
+    }
+    public void takeProducts(int productsTaken){
+        quantity -= productsTaken;
+    }
 }

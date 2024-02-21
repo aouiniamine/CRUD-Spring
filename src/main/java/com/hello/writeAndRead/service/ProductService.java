@@ -29,18 +29,16 @@ public class ProductService {
         Product product = repository.findById(id).orElse(null);
 
         if (product != null){
-            if(quantity > product.quantity){
+            if(quantity > product.getQuantity()){
                 return  new ResponseEntity<>("Inventory doesn't have that much product", HttpStatus.BAD_REQUEST);
             }
-            product.quantity -= quantity;
             try{
+                product.takeProducts(quantity);
                 repository.save(product);
                 return new ResponseEntity<>("Product is taken!!", HttpStatus.OK);
             } catch (Error error){
                 return new ResponseEntity<>(error.getMessage(), HttpStatus.EXPECTATION_FAILED);
             }
-
-
 
         } else return new ResponseEntity<>("Product not found",
                 HttpStatus.NOT_FOUND);
